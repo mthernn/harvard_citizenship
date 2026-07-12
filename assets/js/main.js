@@ -1,5 +1,5 @@
 
-const APPS_SCRIPT_URL = 'PASTE_YOUR_DEPLOYED_APPS_SCRIPT_WEB_APP_URL_HERE';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/u/8/s/AKfycbxFzbCwE5XcHgQVG4BY3dNy_gAVef41p9T6YvuZrYmQrAPb8490INPecaGQx84Cn8q2Zg/exec';
 const PROGRAM_EMAIL = 'citizenship@harvardiop.org';
 function cohortForDate(d=new Date()){
   const y=d.getFullYear(); const m=d.getMonth()+1; const day=d.getDate();
