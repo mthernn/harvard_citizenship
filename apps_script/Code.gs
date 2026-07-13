@@ -17,18 +17,18 @@ const PARTNER_TABS = [
   'Harvard Bridge Program',
   'Harvard Immigration and Refugee Clinic',
   'Harvard Law School',
+  'Harvard Kennedy School',
+  'Harvard Institute of Politics',
   'Cambridge Community Learning Center',
   'Cambridge Commission on Immigrant Rights and Citizenship',
+  "Boston Mayor's Office for Immigrant Advancement",
   'Law Offices of Beyanid Montoya-Sheehan',
   'Project Citizenship',
-  'De Novo Center for Justice and Healing',
-  "Boston Mayor's Office for Immigrant Advancement",
-  'Harvard Institute of Politics',
-  'Harvard Kennedy School'
+  'De Novo Center for Justice and Healing'
 ];
 
 const STUDENT_HEADERS = [
-  'Timestamp','Status','Cohort','Partner','Registrant Type','First Name','Last Name','Email','Phone','Preferred Language','Preferred Format','Availability','Notes','Page Language','Page URL'
+  'Timestamp','Status','Cohort / Match Window','Partner','Registrant Type','First Name','Last Name','Email','Phone','Preferred Language','Preferred Format','Notes','Page Language','Page URL'
 ];
 const CONTACT_HEADERS = ['Timestamp','Status','Inquiry Type','First Name','Last Name','Email','Message','Page Language','Page URL'];
 const TUTOR_HEADERS = ['Timestamp','Status','First Name','Last Name','Email','Phone','Class Year','Language Skills','Interests','Page Language','Page URL'];
@@ -55,7 +55,7 @@ function doPost(e){
 function handleStudentRegistration(ss, data){
   const partner = cleanPartner_(data.partner);
   const sheet = ensureSheet_(ss, partner, STUDENT_HEADERS);
-  const row = [new Date(),'New',data.cohort || '',partner,data.registrantType || '',data.firstName || '',data.lastName || '',data.email || '',data.phone || '',data.preferredLanguage || '',data.preferredFormat || '',data.availability || '',data.notes || '',data.pageLanguage || '',data.pageUrl || ''];
+  const row = [new Date(),'New',data.cohort || '',partner,data.registrantType || '',data.firstName || '',data.lastName || '',data.email || '',data.phone || '',data.preferredLanguage || '',data.preferredFormat || '',data.notes || '',data.pageLanguage || '',data.pageUrl || ''];
   sheet.appendRow(row);
   notifyDirectors_('New student registration: '+fullName_(data), buildStudentHtml_(data, partner));
   if(data.email){
@@ -99,7 +99,7 @@ function confirmationHtml_(data){
   return '<p>Thank you for registering with the Harvard Citizenship Program.</p><p>We are honored to support your journey toward U.S. citizenship. Our Co-Directors will contact you within approximately two days to schedule your welcome meeting and discuss next steps.</p><p>Every service provided by the Harvard Citizenship Program is free.</p><p>Harvard Citizenship Program</p>';
 }
 function buildStudentHtml_(d, partner){
-  return '<h2>New student registration</h2>'+table_({Name:fullName_(d), Email:d.email, Phone:d.phone, Partner:partner, Cohort:d.cohort, 'Registrant type':d.registrantType, 'Preferred language':d.preferredLanguage, 'Preferred format':d.preferredFormat, Availability:d.availability, Notes:d.notes, 'Page language':d.pageLanguage, URL:d.pageUrl});
+  return '<h2>New student registration</h2>'+table_({Name:fullName_(d), Email:d.email, Phone:d.phone, Partner:partner, 'Cohort / match window':d.cohort, 'Registrant type':d.registrantType, 'Preferred language':d.preferredLanguage, 'Preferred format':d.preferredFormat, Notes:d.notes, 'Page language':d.pageLanguage, URL:d.pageUrl});
 }
 function buildContactHtml_(d){ return '<h2>New website inquiry</h2>'+table_({'Inquiry type':d.inquiryType, Name:fullName_(d), Email:d.email, Message:d.message, 'Page language':d.pageLanguage, URL:d.pageUrl}); }
 function buildTutorHtml_(d){ return '<h2>New Harvard student interest</h2>'+table_({Name:fullName_(d), Email:d.email, Phone:d.phone, 'Class year':d.classYear, 'Language skills':d.languageSkills, Interests:d.interests, 'Page language':d.pageLanguage, URL:d.pageUrl}); }

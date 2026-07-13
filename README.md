@@ -1,62 +1,53 @@
 # Harvard Citizenship Program Website
 
-GitHub Pages-ready website for the Harvard Citizenship Program.
+GitHub Pages repository: `harvard_citizenship`  
+Expected URL: `https://mthernn.github.io/harvard_citizenship/`
 
-## Repository
-`harvard_citizenship`
+## What changed in this final package
 
-## Public URL
-`https://mthernn.github.io/harvard_citizenship/`
+- Removed the availability field from student registration.
+- Changed preferred language into a dropdown with all 26 supported languages.
+- Replaced cohort language with plain-language match-window text, such as: “Register soon! Our next cohort of classes starts in September.”
+- Moved Partners between Process and Confidentiality.
+- Reordered the lower page: Registration, Leadership, Success Stories, Donations, Contact, FAQ.
+- Reordered partner logos as requested.
+- Replaced the static partner grid with an infinite logo carousel / moving logo wall.
+- Added hover pause and monochrome-to-color hover behavior for partner logos.
+- Added full language-specific pages under `/lang/` using discreet endonym directories.
+- Updated Apps Script to send student, contact, and tutor-interest notifications to `citizenship@harvardiop.org` and send student confirmation emails.
 
-## What is included
+## Apps Script setup
 
-- Full static website built for GitHub Pages
-- Main English landing page
-- Discreet multilingual directory under `/lang/` with 26 language pages by endonym
-- Custom student registration form
-- Contact form
-- Harvard student interest form
-- Partner-logo referral flow
-- Dynamic counters and responsive design
-- Apps Script backend files for Google Sheets intake routing
-- Normalized asset folder with provided photos and logos
-
-## Connect the Apps Script backend
-
-1. Create a Google Sheet for the program intake tracker.
-2. Copy the Spreadsheet ID from the sheet URL.
-3. Go to `script.google.com` and create a new Apps Script project.
-4. Copy `apps_script/Code.gs` into the project.
-5. Copy `apps_script/appsscript.json` into project settings if needed.
-6. In `Code.gs`, replace `PASTE_GOOGLE_SHEET_ID_HERE` with the Google Sheet ID.
-7. Deploy > New deployment > Web app.
+1. Create a Google Sheet in the `citizenship@harvardiop.org` Google account.
+2. Copy the Sheet ID from the URL.
+3. Go to `script.google.com`, create a new project, and paste `apps_script/Code.gs`.
+4. Replace `PASTE_GOOGLE_SHEET_ID_HERE` with the Sheet ID.
+5. Deploy as a Web App:
    - Execute as: Me
    - Who has access: Anyone
-8. Copy the deployed Web App URL.
-9. In `assets/js/main.js`, replace `PASTE_YOUR_DEPLOYED_APPS_SCRIPT_WEB_APP_URL_HERE` with that URL.
-10. Commit and push to GitHub Pages.
+6. Copy the Web App URL.
+7. In `assets/js/main.js`, replace `PASTE_YOUR_DEPLOYED_APPS_SCRIPT_WEB_APP_URL_HERE` with the Web App URL.
+8. Commit and push to GitHub.
 
-## Google Sheet tabs created by the backend
+## Google Sheet tabs automatically created
+
+The script creates tabs as submissions arrive:
 
 - Independent Referrals
 - Harvard Bridge Program
 - Harvard Immigration and Refugee Clinic
 - Harvard Law School
+- Harvard Kennedy School
+- Harvard Institute of Politics
 - Cambridge Community Learning Center
 - Cambridge Commission on Immigrant Rights and Citizenship
+- Boston Mayor's Office for Immigrant Advancement
 - Law Offices of Beyanid Montoya-Sheehan
 - Project Citizenship
 - De Novo Center for Justice and Healing
-- Boston Mayor's Office for Immigrant Advancement
-- Harvard Institute of Politics
-- Harvard Kennedy School
 - Contact Messages
 - Tutor Interest
 
-## Important privacy note
+## Privacy and review note
 
-The student registration form does not ask for immigration status and does not accept document uploads.
-
-## Translation note
-
-The multilingual pages are included as a complete first website version. Because some languages involve legal and privacy-sensitive wording, final review by fluent speakers is recommended before large-scale outreach in those languages.
+The website does not ask for immigration status and does not upload documents. Translated pages are included for all 26 supported languages. For official public outreach, have fluent speakers review language pages before relying on them for legal or sensitive communication.
