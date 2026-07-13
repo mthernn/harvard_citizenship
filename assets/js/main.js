@@ -8,7 +8,15 @@ function cohortForDate(d=new Date()){
   return 'Register soon! Our next cohort of classes starts in June.';
 }
 function showToast(msg){const t=document.querySelector('.toast'); if(!t)return; t.textContent=msg; t.style.display='block'; setTimeout(()=>t.style.display='none',4200)}
-function applyPartnerFromUrl(){const partner=qs('partner'); if(!partner)return; document.querySelectorAll('select[name="partnerName"]').forEach(s=>{[...s.options].forEach(o=>{if(o.value===partner)s.value=partner})}); const reg=document.querySelector('#register'); if(reg) setTimeout(()=>reg.scrollIntoView({behavior:'smooth'}),200)}
+function applyPartnerFromUrl(){
+  const partner=qs('partner');
+  if(!partner)return;
+  document.querySelectorAll('select[name="partnerName"]').forEach(s=>{
+    [...s.options].forEach(o=>{if(o.value===partner)s.value=partner});
+  });
+  const reg=document.querySelector('#register');
+  if(reg) setTimeout(()=>reg.scrollIntoView({behavior:'smooth'}),200);
+}
 async function submitForm(form){
   const success = form.parentElement.querySelector('.success-message');
   const fd = new FormData(form);
@@ -45,7 +53,130 @@ function init(){
   document.querySelector('.menu-toggle')?.addEventListener('click',()=>document.querySelector('.nav-links')?.classList.toggle('open'));
   document.querySelectorAll('form[data-form-type]').forEach(form=>form.addEventListener('submit',e=>{e.preventDefault();submitForm(form)}));
   document.querySelectorAll('[data-cohort]').forEach(el=>el.textContent=cohortForDate());
-  document.querySelectorAll('.partner-link').forEach(a=>a.addEventListener('click',()=>{const p=a.dataset.partner;document.querySelectorAll('select[name="partnerName"]').forEach(s=>s.value=p);showToast('Referral source selected: '+p)}));
-  applyPartnerFromUrl(); initCounters();
+  document.querySelectorAll('.partner-link').forEach(a=>a.addEventListener('click',()=>{
+    const p=a.dataset.partner;
+    document.querySelectorAll('select[name="partnerName"]').forEach(s=>s.value=p);
+    showToast('Referral source selected: '+p);
+  }));
+  applyPartnerFromUrl();
+  initCounters();
 }
 document.addEventListener('DOMContentLoaded',init);
+
+.partner-marquee {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 24px 0;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.partner-track {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  width: max-content;
+  animation: partner-scroll 42s linear infinite;
+  will-change: transform;
+}
+
+.partner-marquee:hover .partner-track {
+  animation-play-state: paused;
+}
+
+.partner-logo-card {
+  flex: 0 0 auto;
+  width: 220px;
+  min-height: 150px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(20, 37, 63, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 14px 32px rgba(20, 37, 63, 0.08);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.partner-logo-card:hover,
+.partner-logo-card:focus-visible {
+  transform: translateY(-4px);
+  background: #ffffff;
+  border-color: rgba(165, 28, 48, 0.28);
+  box-shadow: 0 18px 40px rgba(20, 37, 63, 0.14);
+}
+
+.partner-logo-card img {
+  display: block;
+  width: 100%;
+  max-width: 150px;
+  height: 72px;
+  object-fit: contain;
+  filter: grayscale(1) saturate(0) contrast(1.08);
+  opacity: 0.72;
+  transition: filter 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.partner-logo-card:hover img,
+.partner-logo-card:focus-visible img {
+  filter: grayscale(0) saturate(1) contrast(1);
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+.partner-logo-card span {
+  font-size: 0.86rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--navy, #14253f);
+}
+
+@keyframes partner-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 20px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .partner-marquee {
+    overflow: visible;
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .partner-track {
+    gap: 28px;
+    animation-duration: 56s;
+  }
+
+  .partner-logo-card {
+    width: 190px;
+    min-height: 140px;
+    padding: 20px;
+  }
+
+  .partner-logo-card img {
+    max-width: 130px;
+    height: 64px;
+  }
+}
