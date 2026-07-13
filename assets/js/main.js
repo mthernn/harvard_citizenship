@@ -1,5 +1,5 @@
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/u/8/s/AKfycbxFzbCwE5XcHgQVG4BY3dNy_gAVef41p9T6YvuZrYmQrAPb8490INPecaGQx84Cn8q2Zg/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/u/8/s/AKfycbzhp057KM4iuwhN1idzSytRmqFRcRfOuNEYOpNt4nmompZoUyHcgnWOVjSC1CuKaKlL1g/exec';
 const PROGRAM_EMAIL = 'citizenship@harvardiop.org';
 function qs(name){return new URLSearchParams(location.search).get(name)}
 function cohortForDate(d=new Date()){
